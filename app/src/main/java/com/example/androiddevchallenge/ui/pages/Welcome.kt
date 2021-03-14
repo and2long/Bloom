@@ -17,7 +17,6 @@ package com.example.androiddevchallenge.ui.pages
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -41,24 +40,26 @@ import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
 import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.ui.theme.MyTheme
-import com.example.androiddevchallenge.ui.theme.gray
-import com.example.androiddevchallenge.ui.theme.green300
 import com.example.androiddevchallenge.ui.theme.pink900
 import com.example.androiddevchallenge.ui.theme.white
 import com.example.androiddevchallenge.values.Destinations
 
 @Composable
-fun Welcome(navController: NavController) {
+fun Welcome(navController: NavController, darkTheme: Boolean) {
+
+    val bg = if (darkTheme) R.drawable.ic_dark_welcome_bg else R.drawable.ic_light_welcome_bg
+    val illos =
+        if (darkTheme) R.drawable.ic_dark_welcome_illos else R.drawable.ic_light_welcome_illos
+    val logo = if (darkTheme) R.drawable.ic_dark_logo else R.drawable.ic_light_logo
     Surface(color = MaterialTheme.colors.primary, modifier = Modifier.fillMaxSize()) {
-        val darkTheme = isSystemInDarkTheme()
         Image(
-            painter = painterResource(id = if (darkTheme) R.drawable.ic_dark_welcome_bg else R.drawable.ic_light_welcome_bg),
+            painter = painterResource(id = bg),
             contentDescription = null,
         )
         ConstraintLayout {
             val (logoImage, logoText, descText, btnRegister, btnLogin) = createRefs()
             Image(
-                painter = painterResource(id = if (darkTheme) R.drawable.ic_dark_welcome_illos else R.drawable.ic_light_welcome_illos),
+                painter = painterResource(id = illos),
                 contentDescription = null,
                 modifier = Modifier
                     .constrainAs(logoImage) {
@@ -67,7 +68,7 @@ fun Welcome(navController: NavController) {
                     }
             )
             Image(
-                painter = painterResource(if (darkTheme) R.drawable.ic_dark_logo else R.drawable.ic_light_logo),
+                painter = painterResource(id = logo),
                 contentDescription = null,
                 modifier = Modifier.constrainAs(logoText) {
                     top.linkTo(logoImage.bottom, margin = 48.dp)
@@ -89,23 +90,16 @@ fun Welcome(navController: NavController) {
                     modifier = Modifier.align(Alignment.Center)
                 )
             }
-            Button(
-                onClick = { /*TODO*/ },
+            PrimaryButton(
+                text = "Create Account", onClick = { /*TODO*/ },
                 modifier = Modifier
+                    .height(48.dp)
+                    .padding(start = 16.dp, end = 16.dp)
+                    .fillMaxWidth()
                     .constrainAs(btnRegister) {
                         top.linkTo(descText.bottom, margin = 40.dp)
                     }
-                    .height(48.dp)
-                    .padding(start = 16.dp, end = 16.dp)
-                    .fillMaxWidth(),
-                shape = RoundedCornerShape(24.dp),
-                colors = ButtonDefaults.buttonColors(backgroundColor = if (darkTheme) green300 else pink900)
-            ) {
-                Text(
-                    text = "Create Account",
-                    style = MaterialTheme.typography.button.copy(color = if (darkTheme) gray else white),
-                )
-            }
+            )
             Text(
                 text = "Log in",
                 style = MaterialTheme.typography.button.copy(color = if (darkTheme) white else pink900),
@@ -126,11 +120,27 @@ fun Welcome(navController: NavController) {
     }
 }
 
+@Composable
+fun PrimaryButton(text: String, onClick: () -> Unit, modifier: Modifier = Modifier) {
+    println(modifier)
+    Button(
+        onClick = onClick,
+        modifier = modifier,
+        shape = RoundedCornerShape(24.dp),
+        colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary)
+    ) {
+        Text(
+            text = text,
+            style = MaterialTheme.typography.button.copy(color = MaterialTheme.colors.onSecondary),
+        )
+    }
+}
+
 @Preview(widthDp = 360, heightDp = 640)
 @Composable
 fun WelcomeLightPreview() {
     MyTheme {
-        Welcome(navController = rememberNavController())
+        Welcome(navController = rememberNavController(), darkTheme = false)
     }
 }
 
@@ -138,6 +148,6 @@ fun WelcomeLightPreview() {
 @Composable
 fun WelcomeDarkPreview() {
     MyTheme(darkTheme = true) {
-        Welcome(navController = rememberNavController())
+        Welcome(navController = rememberNavController(), darkTheme = true)
     }
 }

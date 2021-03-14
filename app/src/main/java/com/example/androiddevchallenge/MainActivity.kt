@@ -18,6 +18,7 @@ package com.example.androiddevchallenge
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
@@ -43,7 +44,12 @@ class MainActivity : AppCompatActivity() {
 fun MyApp() {
     val navController = rememberNavController()
     NavHost(navController, startDestination = Destinations.Welcome) {
-        composable(Destinations.Welcome) { Welcome(navController) }
+        composable(Destinations.Welcome) {
+            Welcome(
+                navController,
+                darkTheme = isSystemInDarkTheme()
+            )
+        }
         composable(Destinations.Login) { Login() }
     }
 }

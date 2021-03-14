@@ -15,37 +15,80 @@
  */
 package com.example.androiddevchallenge.ui.pages
 
-import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.androiddevchallenge.ui.theme.MyTheme
 
 @Composable
 fun Login() {
+    val email = remember { mutableStateOf(TextFieldValue()) }
+    val pwd = remember { mutableStateOf(TextFieldValue()) }
+
     Surface(color = MaterialTheme.colors.background, modifier = Modifier.fillMaxSize()) {
-        ConstraintLayout {
-            val (title) = createRefs()
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+
+        ) {
             Text(
                 text = "Log in with email",
-                style = TextStyle(
-                    fontSize = 18.sp,
-                    color = if (isSystemInDarkTheme()) Color.White else Color.Black,
-                ),
-                modifier = Modifier.constrainAs(title) {
-                    top.linkTo(parent.top, margin = 184.dp)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
+                style = MaterialTheme.typography.h1.copy(color = MaterialTheme.colors.onBackground),
+                modifier = Modifier.padding(top = 184.dp)
+            )
+            OutlinedTextField(
+                value = email.value,
+                onValueChange = { email.value = it },
+                label = { Text("Email address", style = MaterialTheme.typography.body1) },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 16.dp, top = 16.dp, end = 16.dp)
+            )
+            OutlinedTextField(
+                value = pwd.value,
+                onValueChange = { pwd.value = it },
+                label = {
+                    Text(
+                        "Password (8+ characters)",
+                        style = MaterialTheme.typography.body1
+                    )
                 },
+                visualTransformation = PasswordVisualTransformation(),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 16.dp, top = 8.dp, end = 16.dp)
+            )
+            Text(
+                text = "By clicking below, you agree to our Terms of Use and consent to our Privacy Policy.",
+                style = MaterialTheme.typography.body2,
+                modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 16.dp),
+                textAlign = TextAlign.Center
+            )
+            PrimaryButton(
+                text = "Log in", onClick = { /*TODO*/ },
+                modifier = Modifier
+                    .height(48.dp)
+                    .padding(start = 16.dp, end = 16.dp)
+                    .fillMaxWidth()
             )
         }
     }
@@ -55,6 +98,14 @@ fun Login() {
 @Composable
 fun LoginLightPreview() {
     MyTheme {
+        Login()
+    }
+}
+
+@Preview(widthDp = 360, heightDp = 640)
+@Composable
+fun LoginDarkPreview() {
+    MyTheme(darkTheme = true) {
         Login()
     }
 }
