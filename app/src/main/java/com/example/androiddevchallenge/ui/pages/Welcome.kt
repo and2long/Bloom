@@ -16,8 +16,10 @@
 package com.example.androiddevchallenge.ui.pages
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -34,16 +36,20 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.navigation.NavController
+import androidx.navigation.compose.navigate
+import androidx.navigation.compose.rememberNavController
 import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.ui.theme.MyTheme
 import com.example.androiddevchallenge.ui.theme.gray
 import com.example.androiddevchallenge.ui.theme.green300
 import com.example.androiddevchallenge.ui.theme.pink900
 import com.example.androiddevchallenge.ui.theme.white
+import com.example.androiddevchallenge.values.Destinations
 
 @Composable
-fun Welcome() {
-    Surface(color = MaterialTheme.colors.primary) {
+fun Welcome(navController: NavController) {
+    Surface(color = MaterialTheme.colors.primary, modifier = Modifier.fillMaxSize()) {
         val darkTheme = isSystemInDarkTheme()
         Image(
             painter = painterResource(id = if (darkTheme) R.drawable.ic_dark_welcome_bg else R.drawable.ic_light_welcome_bg),
@@ -100,35 +106,38 @@ fun Welcome() {
                     style = MaterialTheme.typography.button.copy(color = if (darkTheme) gray else white),
                 )
             }
-            Box(
+            Text(
+                text = "Log in",
+                style = MaterialTheme.typography.button.copy(color = if (darkTheme) white else pink900),
                 modifier = Modifier
-                    .fillMaxWidth()
                     .constrainAs(btnLogin) {
-                        top.linkTo(btnRegister.bottom, margin = 20.dp)
+                        top.linkTo(btnRegister.bottom)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
                     }
-            ) {
-                Text(
-                    text = "Log in",
-                    style = MaterialTheme.typography.button.copy(color = if (darkTheme) white else pink900),
-                    modifier = Modifier.align(Alignment.Center)
-                )
-            }
+                    .padding(top = 24.dp)
+                    .clickable(
+                        onClick = {
+                            navController.navigate(Destinations.Login)
+                        }
+                    )
+            )
         }
     }
 }
 
-@Preview(widthDp = 360)
+@Preview(widthDp = 360, heightDp = 640)
 @Composable
 fun WelcomeLightPreview() {
     MyTheme {
-        Welcome()
+        Welcome(navController = rememberNavController())
     }
 }
 
-@Preview(widthDp = 360)
+@Preview(widthDp = 360, heightDp = 640)
 @Composable
 fun WelcomeDarkPreview() {
     MyTheme(darkTheme = true) {
-        Welcome()
+        Welcome(navController = rememberNavController())
     }
 }
