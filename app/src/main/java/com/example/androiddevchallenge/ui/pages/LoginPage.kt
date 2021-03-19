@@ -49,10 +49,7 @@ fun LoginPage(navController: NavController) {
     val pwd = remember { mutableStateOf(TextFieldValue()) }
 
     Surface(color = MaterialTheme.colors.background, modifier = Modifier.fillMaxSize()) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-
-        ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
                 text = "Log in with email",
                 style = MaterialTheme.typography.h1.copy(color = MaterialTheme.colors.onBackground),
@@ -61,7 +58,7 @@ fun LoginPage(navController: NavController) {
             OutlinedTextField(
                 value = email.value,
                 onValueChange = { email.value = it },
-                label = { Text("Email address", style = MaterialTheme.typography.body1) },
+                placeholder = { Text("Email address", style = MaterialTheme.typography.body1) },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                 modifier = Modifier
                     .fillMaxWidth()
@@ -70,7 +67,7 @@ fun LoginPage(navController: NavController) {
             OutlinedTextField(
                 value = pwd.value,
                 onValueChange = { pwd.value = it },
-                label = {
+                placeholder = {
                     Text(
                         "Password (8+ characters)",
                         style = MaterialTheme.typography.body1

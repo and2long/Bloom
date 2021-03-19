@@ -15,14 +15,18 @@
  */
 package com.example.androiddevchallenge.ui.components
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.Composable
@@ -38,18 +42,31 @@ import com.example.androiddevchallenge.ui.theme.MyTheme
 @Composable
 fun SearchBar() {
     val keyword = remember { mutableStateOf(TextFieldValue()) }
-    OutlinedTextField(
-        value = keyword.value,
-        onValueChange = { keyword.value = it },
-        label = { Text("Search", style = MaterialTheme.typography.body1) },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-        leadingIcon = {
-            Icon(imageVector = Icons.Outlined.Search, contentDescription = null)
-        },
+    Box(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(start = 16.dp, top = 16.dp, end = 16.dp)
-    )
+            .height(96.dp)
+            .padding(top = 40.dp)
+    ) {
+        OutlinedTextField(
+            maxLines = 1,
+            value = keyword.value,
+            onValueChange = { keyword.value = it },
+            placeholder = { Text("Search", style = MaterialTheme.typography.body1) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Outlined.Search,
+                    contentDescription = null,
+                    modifier = Modifier.size(18.dp)
+                )
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 16.dp, end = 16.dp),
+            textStyle = MaterialTheme.typography.body1,
+            colors = TextFieldDefaults.outlinedTextFieldColors(cursorColor = MaterialTheme.colors.onPrimary)
+        )
+    }
 }
 
 @Preview(heightDp = 200)

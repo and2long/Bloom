@@ -31,6 +31,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -46,7 +47,6 @@ import com.example.androiddevchallenge.values.Destinations
 
 @Composable
 fun Welcome(navController: NavController, darkTheme: Boolean) {
-
     val bg = if (darkTheme) R.drawable.ic_dark_welcome_bg else R.drawable.ic_light_welcome_bg
     val illos =
         if (darkTheme) R.drawable.ic_dark_welcome_illos else R.drawable.ic_light_welcome_illos
@@ -65,7 +65,8 @@ fun Welcome(navController: NavController, darkTheme: Boolean) {
                     .constrainAs(logoImage) {
                         top.linkTo(parent.top, margin = 72.dp)
                         start.linkTo(parent.start, margin = 88.dp)
-                    }
+                    },
+                contentScale = ContentScale.Crop
             )
             Image(
                 painter = painterResource(id = logo),
