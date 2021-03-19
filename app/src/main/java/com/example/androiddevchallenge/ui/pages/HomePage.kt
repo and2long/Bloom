@@ -35,6 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.ui.components.ItemGarden
 import com.example.androiddevchallenge.ui.components.SearchBar
 import com.example.androiddevchallenge.ui.components.ThemeCard
@@ -54,8 +55,16 @@ fun HomePage() {
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier.padding(start = 16.dp)
             ) {
+                val titles = mutableListOf("Desert chic", "Tiny terrariums", "Jungle")
+                val images = mutableListOf(
+                    R.mipmap.img6,
+                    R.mipmap.img7,
+                    R.mipmap.img8,
+                    R.mipmap.img9,
+                    R.mipmap.img10
+                )
                 items(20) {
-                    ThemeCard()
+                    ThemeCard(titles[it % 3], images[it % 5])
                 }
             }
             Box(
@@ -80,10 +89,18 @@ fun HomePage() {
             }
             val titles = mutableListOf("Monstera", "Aglaonema", "Peace lity", "Fiddle leaf tree")
             LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                val images = mutableListOf(
+                    R.mipmap.img1,
+                    R.mipmap.img2,
+                    R.mipmap.img3,
+                    R.mipmap.img4,
+                    R.mipmap.img5
+                )
                 items(20) {
                     ItemGarden(
                         it == 0,
-                        titles[it % 4]
+                        titles[it % 4],
+                        images[it % 5]
                     )
                 }
             }

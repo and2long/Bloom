@@ -39,14 +39,14 @@ import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.ui.theme.MyTheme
 
 @Composable
-fun ItemGarden(checked: Boolean, title: String) {
+fun ItemGarden(checked: Boolean, title: String, imageId: Int) {
     Box(
         modifier = Modifier
             .height(64.dp)
             .padding(start = 16.dp)
     ) {
         Image(
-            painter = painterResource(id = R.mipmap.theme1),
+            painter = painterResource(id = imageId),
             contentDescription = null,
             modifier = Modifier
                 .height(64.dp)
@@ -90,7 +90,7 @@ fun ItemGarden(checked: Boolean, title: String) {
 fun LightPreview() {
     MyTheme(darkTheme = false) {
         Surface(color = MaterialTheme.colors.background) {
-            ItemGarden(true, "Monstera")
+            ItemGarden(true, "Monstera", R.mipmap.img4)
         }
     }
 }
@@ -100,7 +100,7 @@ fun LightPreview() {
 fun DarkPreview() {
     MyTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colors.background) {
-            ItemGarden(false, "Monstera")
+            ItemGarden(false, "Monstera", R.mipmap.img4)
         }
     }
 }

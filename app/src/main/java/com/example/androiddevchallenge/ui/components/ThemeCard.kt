@@ -37,7 +37,7 @@ import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.ui.theme.MyTheme
 
 @Composable
-fun ThemeCard() {
+fun ThemeCard(title: String, imgId: Int) {
     Card {
         Surface(
             color = MaterialTheme.colors.primaryVariant
@@ -48,13 +48,13 @@ fun ThemeCard() {
                     .width(136.dp)
             ) {
                 Image(
-                    painter = painterResource(id = R.mipmap.theme1),
+                    painter = painterResource(id = imgId),
                     contentDescription = null,
                     modifier = Modifier.height(96.dp),
                     contentScale = ContentScale.Crop
                 )
                 Text(
-                    text = "Desert chic",
+                    text = title,
                     style = MaterialTheme.typography.h2.copy(color = MaterialTheme.colors.onPrimary),
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
@@ -72,7 +72,7 @@ fun ThemeCard() {
 @Composable
 fun ThemeCardLightPreview() {
     MyTheme(darkTheme = false) {
-        ThemeCard()
+        ThemeCard("Desert chic", R.mipmap.img10)
     }
 }
 
@@ -80,6 +80,6 @@ fun ThemeCardLightPreview() {
 @Composable
 fun ThemeCardDarkPreview() {
     MyTheme(darkTheme = true) {
-        ThemeCard()
+        ThemeCard("Desert chic", R.mipmap.img1)
     }
 }
