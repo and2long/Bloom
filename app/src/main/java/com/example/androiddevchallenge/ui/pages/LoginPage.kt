@@ -36,10 +36,15 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.navigate
+import androidx.navigation.compose.popUpTo
+import androidx.navigation.compose.rememberNavController
 import com.example.androiddevchallenge.ui.theme.MyTheme
+import com.example.androiddevchallenge.values.Destinations
 
 @Composable
-fun Login() {
+fun LoginPage(navController: NavController) {
     val email = remember { mutableStateOf(TextFieldValue()) }
     val pwd = remember { mutableStateOf(TextFieldValue()) }
 
@@ -84,7 +89,12 @@ fun Login() {
                 textAlign = TextAlign.Center
             )
             PrimaryButton(
-                text = "Log in", onClick = { /*TODO*/ },
+                text = "Log in",
+                onClick = {
+                    navController.navigate(Destinations.Main) {
+                        popUpTo(Destinations.Welcome) {}
+                    }
+                },
                 modifier = Modifier
                     .height(48.dp)
                     .padding(start = 16.dp, end = 16.dp)
@@ -98,7 +108,7 @@ fun Login() {
 @Composable
 fun LoginLightPreview() {
     MyTheme {
-        Login()
+        LoginPage(rememberNavController())
     }
 }
 
@@ -106,6 +116,6 @@ fun LoginLightPreview() {
 @Composable
 fun LoginDarkPreview() {
     MyTheme(darkTheme = true) {
-        Login()
+        LoginPage(rememberNavController())
     }
 }

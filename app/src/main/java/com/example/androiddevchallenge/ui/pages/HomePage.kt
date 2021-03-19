@@ -15,23 +15,33 @@
  */
 package com.example.androiddevchallenge.ui.pages
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.FilterList
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.androiddevchallenge.ui.components.ItemGarden
 import com.example.androiddevchallenge.ui.components.SearchBar
 import com.example.androiddevchallenge.ui.components.ThemeCard
 import com.example.androiddevchallenge.ui.theme.MyTheme
 
 @Composable
-fun Home() {
+fun HomePage() {
     Surface(color = MaterialTheme.colors.background) {
         Column {
             SearchBar()
@@ -44,15 +54,39 @@ fun Home() {
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier.padding(start = 16.dp)
             ) {
-                items(5) {
+                items(20) {
                     ThemeCard()
                 }
             }
-            Text(
-                text = "Design your home garden",
-                style = MaterialTheme.typography.h1,
-                modifier = Modifier.padding(16.dp)
-            )
+            Box(
+                modifier = Modifier
+                    .height(56.dp)
+                    .padding(horizontal = 16.dp)
+                    .fillMaxWidth()
+            ) {
+                Text(
+                    text = "Design your home garden",
+                    style = MaterialTheme.typography.h1,
+                    modifier = Modifier
+                        .padding(bottom = 16.dp)
+                        .align(Alignment.BottomStart)
+                )
+                Image(
+                    imageVector = Icons.Default.FilterList,
+                    contentDescription = null,
+                    modifier = Modifier.align(Alignment.CenterEnd),
+                    colorFilter = ColorFilter.tint(MaterialTheme.colors.onBackground)
+                )
+            }
+            val titles = mutableListOf("Monstera", "Aglaonema", "Peace lity", "Fiddle leaf tree")
+            LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                items(20) {
+                    ItemGarden(
+                        it == 0,
+                        titles[it % 4]
+                    )
+                }
+            }
         }
     }
 }
@@ -61,7 +95,7 @@ fun Home() {
 @Composable
 fun LightPreview() {
     MyTheme(darkTheme = false) {
-        Home()
+        HomePage()
     }
 }
 
@@ -69,6 +103,6 @@ fun LightPreview() {
 @Composable
 fun DarkPreview() {
     MyTheme(darkTheme = true) {
-        Home()
+        HomePage()
     }
 }

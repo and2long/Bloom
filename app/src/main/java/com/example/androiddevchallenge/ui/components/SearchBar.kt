@@ -52,7 +52,7 @@ fun SearchBar() {
     )
 }
 
-@Preview()
+@Preview(heightDp = 200)
 @Composable
 fun SearchBarLightPreview() {
     MyTheme(darkTheme = false) {
@@ -62,7 +62,7 @@ fun SearchBarLightPreview() {
     }
 }
 
-@Preview
+@Preview(heightDp = 200)
 @Composable
 fun SearchBarDarkPreview() {
     MyTheme(darkTheme = true) {

@@ -18,4 +18,5 @@ package com.example.androiddevchallenge.values
 object Destinations {
     const val Welcome = "welcome"
     const val Login = "login"
+    const val Main = "main"
 }

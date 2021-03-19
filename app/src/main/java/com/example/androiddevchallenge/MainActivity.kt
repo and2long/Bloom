@@ -24,7 +24,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.androiddevchallenge.ui.pages.Login
+import com.example.androiddevchallenge.ui.pages.LoginPage
+import com.example.androiddevchallenge.ui.pages.MainPage
 import com.example.androiddevchallenge.ui.pages.Welcome
 import com.example.androiddevchallenge.ui.theme.MyTheme
 import com.example.androiddevchallenge.values.Destinations
@@ -50,7 +51,8 @@ fun MyApp() {
                 darkTheme = isSystemInDarkTheme()
             )
         }
-        composable(Destinations.Login) { Login() }
+        composable(Destinations.Login) { LoginPage(navController) }
+        composable(Destinations.Main) { MainPage() }
     }
 }
 
